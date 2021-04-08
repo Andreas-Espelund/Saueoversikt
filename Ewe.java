@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//soye
 public class Ewe extends Sheep{
     protected ArrayList<Sheep> lambs = new ArrayList<Sheep>();
     protected int expectedLambs = 0; 

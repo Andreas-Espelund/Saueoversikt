@@ -1,9 +1,11 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream.GetField;
 import java.io.ObjectInputStream;
 import java.io.FileWriter;
 import java.io.File;
@@ -17,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         String path = "Data/metadata.csv";
-        
+        importData(path);
         int selection = 0;
 
         
@@ -62,7 +64,7 @@ public class Main {
             else if (selection == 4){
                 blank(30);
                 System.out.println("Meny 4");
-                importData(path);
+                
                 goBack();
             }
 
@@ -147,8 +149,7 @@ public class Main {
             int i = 0;
             while (sc.hasNextLine()){
                 Sheep sh = readFromFile(sc.nextLine());
-                System.out.println(sh);
-                //container.add(sh);
+                container.add(sh);
                 i++;
             }
             System.out.println(i + " filer lest inn");
@@ -166,7 +167,7 @@ public class Main {
             int i = 0;
             for(Sheep s : container){
                 String name = writeToFile(s);
-                myWriter.write(name);
+                myWriter.write(name+"\n");
                 i++;
             }
             myWriter.close();
@@ -177,10 +178,11 @@ public class Main {
         }
         
     }
+    
     public static String writeToFile(Sheep sheep){
-        String filepath = "Data/" + String.valueOf(sheep.getID());
+        String filepath =  String.valueOf(sheep.getID());
         try{
-            FileOutputStream fileOut = new FileOutputStream(filepath);
+            FileOutputStream fileOut = new FileOutputStream("Data/" +filepath);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
             objOut.writeObject(sheep);
             objOut.close();
@@ -193,18 +195,18 @@ public class Main {
     }
 
     public static Sheep readFromFile(String individualPath){
-        System.out.println(individualPath);
+        
         try {
-            FileInputStream fileIn = new FileInputStream("Data/"+individualPath);
+            FileInputStream fileIn = new FileInputStream("Data/" +individualPath);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             Sheep shp = (Sheep)objectIn.readObject();
  
-            System.out.println("Import from " + individualPath + "sucessfull!");
+            System.out.println("Import from " + individualPath + " sucessfull!");
             objectIn.close();
             return shp;
             
         } catch (Exception ex) {
-            System.out.println("Import from " + individualPath + "failed!");
+            System.out.println("Import from " + individualPath + " failed!");
             return null;
         }
     }
@@ -215,4 +217,24 @@ public class Main {
             System.out.println(s);
         }
     }
-}
+
+    public static void createSheep(){
+        int ID = getID();
+        
+        Date birthdate = new Date(getInput(2000, 2100), getInput(1, 12), getInput(1, 31));
+
+    }
+
+    public static int getID(){
+        int ID = getInput(0, 99999)
+        if (String.valueOf(ID).length() != 5){
+            System.out.println("Ugyldig lengde!");
+            getID();
+        }
+        for ()
+        return ID;
+    }
+
+    
+
+

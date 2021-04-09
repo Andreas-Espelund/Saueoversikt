@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 //soye
 public class Ewe extends Sheep{
     protected ArrayList<Sheep> lambs = new ArrayList<Sheep>();
     protected int expectedLambs = 0; 
 
-    public Ewe(int ID, String birthdate){
+    public Ewe(int ID, Date birthdate){
         super(ID,birthdate);
     }
 
@@ -18,4 +19,10 @@ public class Ewe extends Sheep{
         expectedLambs = e;
     }
 
+    public String toString(){
+        if (isBottlelamb()){
+            return "|| ID: " +ID + " | Soye (K)||";
+        }
+        return "|| ID: " +ID + " | Soye ||";
+    }
 }

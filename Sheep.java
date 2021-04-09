@@ -1,9 +1,10 @@
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Calendar;
 
 
-class Sheep implements Serializable{
+class Sheep implements Serializable, Comparable{
     enum Status{
         OK,
         SICK,
@@ -14,7 +15,7 @@ class Sheep implements Serializable{
     protected int ID;
     protected Sheep mother;
     protected Sheep father;
-    protected String birthdate;
+    protected Date birthdate;
     protected Boolean bottleLamb = false;
     protected LinkedHashMap<String,Double> weights = new LinkedHashMap<>();
     protected Double currentWeight;
@@ -22,7 +23,7 @@ class Sheep implements Serializable{
     protected ArrayList<String> comments = new ArrayList<>();
 
     
-    public Sheep(int ID, String birthdate){
+    public Sheep(int ID, Date birthdate){
         this.ID = ID;
         this.birthdate = birthdate;
         
@@ -60,7 +61,7 @@ class Sheep implements Serializable{
 
     public Sheep getFather(){return father;}
 
-    public String getBirthdate(){return birthdate;}
+    public Date getBirthdate(){return birthdate;}
 
     public Boolean isBottlelamb(){return bottleLamb;}
 
@@ -72,12 +73,31 @@ class Sheep implements Serializable{
 
     public Double getCurrentWeight(){return currentWeight;}
 
-    public String toString(){
-        String info = "-----------------------------\n";
-        info = info + "ID: " + ID+"\n";
-        info = info + "Foedselsdato: " + birthdate +"\n";
-        info = info + "-----------------------------\n";
-        return info;
+    @Override
+    public int compareTo(Object obj){
+        Sheep otherSheep = (Sheep)obj;
+        if (ID < otherSheep.getID()){
+            return 1;
+        }else if (ID < otherSheep.getID()){
+            return -1;
+        }
+        return 0;
+    }
+
+    public int compareWeight(Object obj){
+        Sheep otherSheep = (Sheep) obj;
+        if (currentWeight > otherSheep.getCurrentWeight()){
+            return 1;
+        }else if (currentWeight < otherSheep.getCurrentWeight()){
+            return -1;
+        }
+        return 0;
+    }
+
+    public int compareAge(Object obj){
+        Sheep otherSheep = (Sheep) obj;
+        return birthdate.compareTo(otherSheep.getBirthdate());
+
     }
 
 }
